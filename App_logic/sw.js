@@ -8,12 +8,14 @@ const urlsToCache = [
   './demoResult.html',
   './demoResult2.html',
   './demoResult3.html',
+  './answersInformation.html',
   './images/a-zs_logo.png',
   './images/animalCrossing.jpg',
   './images/apex.jpg',
   './images/valorant.png',
   './app.js',
   './style.css',
+  './bootstrap/bootstrap.css',
 ];
 
 //swは正常に登録されるとinstallイベントが走る

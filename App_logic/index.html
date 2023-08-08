@@ -5,31 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>e-sports診断フローチャート</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bootstrap/bootstrap.css">
     <script src="app.js" defer></script>
     <!---PWA用のmanifestファイル-->
     <link rel="manifest" href="./manifest.json">
 </head>
-<body>
+<body class="text-center">
     <h2>e-sports診断フローチャート</h2>
     <div>
-        <button id="restart-button">はじめからやり直す</button>
+        <button id="restart-button" class="btn btn-primary">はじめからやり直す</button>
     </div>
     <div id="container">
         <div id="question-container">
             <span id="question">質問</span>
         </div>
         <div id="answer-buttons">
-            <button id=option1 onclick="answerQuestion(1);pageTransition()">はい</button>
-            <button id=option2 onclick="answerQuestion(2);pageTransition()">いいえ</button>
+            <button id=option1 class="btn btn-primary" onclick="answerQuestion(1);pageTransition()">はい</button>
+            <button id=option2 class="btn btn-primary" onclick="answerQuestion(2);pageTransition()">いいえ</button>
         </div>
     </div>
     <div>
-        <button id="back-button" onclick="backToPreviousQuestion();pageTransition()">一つ前に戻る</button>
+        <button id="back-button" class="btn btn-primary" onclick="backToPreviousQuestion();pageTransition()">一つ前に戻る</button>
     </div>
     <div>
-        <button id="admin-button" onclick="requirePassword()">管理者用ページ</button>
+        <button id="admin-button" class="btn btn-primary" onclick="requirePassword()">管理者用ページ</button>
     </div>
-    <a href="./demoResult.html">デモ結果画面に移動（テスト）</a>
+
 <script>
 //管理者用画面への遷移制御
 function requirePassword(){

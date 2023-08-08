@@ -133,6 +133,7 @@ function saveToLocalStorage(){
   let jsonText = JSON.stringify(answers);
   //ローカルストレージに保存
   window.localStorage.setItem(username,jsonText);
+  
 }
 
 
