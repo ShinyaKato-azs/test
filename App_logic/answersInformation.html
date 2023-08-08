@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-sports診断フローチャート 回答一覧</title>
+    <script src="" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <!---PWA用のmanifestファイル-->
+    <link rel="manifest" href="./manifest.json">
+</head>
+<body>
+    <h2>e-sports診断回答一覧</h2>
+    <div id="table-container" style="margin-left:40%;">
+        <table id="data-table" border="1">
+            <th>会社名</th>
+            <th>名前</th>
+            <th>回答配列</th>
+            <tr id="table-row">
+                <td id="company-name">デモ会社</td>
+                <td id="username">デモ名前</td>
+                <td id="answers-array">デモ回答</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <a href="index.html">診断に戻る</a>
+    </div>
+<script>
+/*グローバル変数を定義*/
+let storageKey;
+let storageValue;
+let storageLength = window.localStorage.length;
+
+/* ローカルストレージの要素数の文だけfor文で繰り返す */
+  let i
+  for(i=0;i<storageLength;i++){
+    
+    //ストレージのキーを取得
+    storageKey = window.localStorage.key(i);
+    //値の取得
+    storageValue = window.localStorage.getItem(storageKey);
+
+    /* テーブル要素の追加 */
+    let table =document.getElementById('data-table')
+        //行を一行定義
+        let tr = document.createElement('tr');
+        //行に列（td）を３つ追加
+        let companyName = document.createElement('td');
+        companyName.innerHTML = "デモ会社";
+        tr.appendChild(companyName);
+        let username = document.createElement('td');
+        username.innerHTML = storageKey;
+        tr.appendChild(username);
+        let answersArray = document.createElement('td');
+        answersArray.innerHTML=storageValue;
+        tr.appendChild(answersArray);
+    //行をテーブルの最後に追加
+    table.appendChild(tr);
+
+    
+    //出力
+    console.log(storageKey+":"+storageValue);
+
+  }
+</script>
+</body>
+</html>

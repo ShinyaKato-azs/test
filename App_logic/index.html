@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-sports診断フローチャート</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+    <!---PWA用のmanifestファイル-->
+    <link rel="manifest" href="./manifest.json">
+</head>
+<body>
+    <h2>e-sports診断フローチャート</h2>
+    <div>
+        <button id="restart-button">はじめからやり直す</button>
+    </div>
+    <div id="container">
+        <div id="question-container">
+            <span id="question">質問</span>
+        </div>
+        <div id="answer-buttons">
+            <button id=option1 onclick="answerQuestion(1);pageTransition()">はい</button>
+            <button id=option2 onclick="answerQuestion(2);pageTransition()">いいえ</button>
+        </div>
+    </div>
+    <div>
+        <button id="back-button" onclick="backToPreviousQuestion();pageTransition()">一つ前に戻る</button>
+    </div>
+    <div>
+        <button id="admin-button" onclick="requirePassword()">管理者用ページ</button>
+    </div>
+<script>
+//管理者用画面への遷移制御
+function requirePassword(){
+     password=prompt("パスワードを入力してください","");
+     if ( password == "Syokai123@" ){
+         location.href="answersInformation.html";
+     }else{
+         alert( "パスワードが違います!" );
+     }
+}
+
+ //フェードイン
+function fadeIn(){
+
+const keyframes ={
+opacity:["0","1"]
+}
+const timing ={
+fill:"forwards" ,
+duration:800
+}
+
+// アニメーションを加える要素を指定
+document.body.animate(keyframes,timing);
+
+}
+fadeIn();
+</script>
+</body>
+</html>
