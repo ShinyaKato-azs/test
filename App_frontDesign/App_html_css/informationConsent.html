@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- BootstrapのCSS読み込み -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>個人情報の同意</title>
+</head>
+<body>
+  <header>
+    <img src="picture/a-zs_logo.png" class="ml-3 mt-3">
+  </header>
+  <div class="container mt-5">
+    <h2 class="text-center">個人情報の同意</h2>
+    <p class="text-justify">
+      以下の個人情報の取扱いに同意いただく必要があります。内容をよくお読みいただき、同意していただける場合は、下部の同意するボタンをクリックしてください。
+    </p>
+    <div class="border p-4 mb-4">
+      <h4>個人情報の取扱いについて</h4>
+      <p>個人情報は、以下の目的で利用します。</p>
+      <ul>
+        <li>サービスの提供</li>
+        <li>お問い合わせへの回答</li>
+        <li>マーケティング活動</li>
+        <!-- 他の項目を追加 -->
+      </ul>
+    </div>
+    <div class="form-check mb-3">
+      <input type="checkbox" class="form-check-input" id="agreeCheck">
+      <label class="form-check-label" for="agreeCheck">上記の内容に同意する</label>
+    </div>
+    <button type="button" class="btn btn-primary" disabled id="agreeButton" button onclick="location.href='inputform.html'">同意する</button>
+    <button type="button" class="btn btn-light" button onclick="location.href='title.html'" >戻る</button>
+  </div>
+
+  <!-- JavaScript to enable button -->
+  <script>
+    document.getElementById('agreeCheck').addEventListener('change', function() {
+      document.getElementById('agreeButton').disabled = !this.checked;
+    });
+  </script>
+</body>
+</html>

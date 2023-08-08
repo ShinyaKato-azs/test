@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- BootstrapのCSS読み込み -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/question.css">
+    <script src="../../App_logic/app.js" defer></script>
+    <title>質問</title>
+</head>
+<header>
+    <img src="picture/a-zs_logo.png" class="ml-3 mt-3">
+</header>
+<body>
+  
+  <div class="text-right m-4">
+    <div style="height: 60px;" class="mb-2" >
+    <div id="restart-button" class="btn btn--else btn--cubic btn--shadow m-2">はじめから</div>
+    </div>
+    <div style="height: 20px;">
+    <div id="back-button" class="btn btn--else btn--cubic btn--shadow mr-3" onclick="backToPreviousQuestion()">1つ戻る</div>
+    </div>
+  </div>
+  <div>
+    <p id="question" class="text-center">プライベートでゲームする社員は多いですか？</p>
+  </div>
+  <div class="text-center">
+    <div id=option1 class="btn btn--option1 btn--cubic btn--shadow mr-5"onclick="answerQuestion(1)">はい</div>
+    <div id=option2 class="btn btn--option2 btn--cubic btn--shadow ml-5"onclick="answerQuestion(2)">いいえ</div>
+  </div>
+</body>
+</html>

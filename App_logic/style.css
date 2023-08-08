@@ -1,0 +1,22 @@
+body {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+}
+
+#answer-buttons {
+  margin: 20px;
+}
+
+#result {
+  font-weight: bold;
+  margin: 20px;
+}
+
+#back-button{
+  margin-right: 70%;
+}
+
+#restart-button{
+  margin-left: 60%;
+  margin-bottom: 10%;
+}
