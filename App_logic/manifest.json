@@ -1,8 +1,8 @@
 {
     "name": "e-sports診断",
     "short_name": "e-sports",
-    "theme_color": "#00fa9a",
-    "background_color": "#00fa9a",
+    "theme_color": "#ccffcc",
+    "background_color": "#ccffcc",
     "display": "standalone",
     "start_url": "./index.html",
     "icons": [
