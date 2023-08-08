@@ -15,7 +15,6 @@ const urlsToCache = [
   './images/valorant.png',
   './app.js',
   './style.css',
-  './bootstrap/bootstrap.css',
 ];
 
 //swは正常に登録されるとinstallイベントが走る
