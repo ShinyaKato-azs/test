@@ -9,7 +9,7 @@ const urlsToCache = [
   './demoResult2.html',
   './demoResult3.html',
   './images/a-zs_logo.png',
-  './animalCrossing.jpg',
+  './images/animalCrossing.jpg',
   './images/apex.jpg',
   './images/valorant.png',
   './app.js',
