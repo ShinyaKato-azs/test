@@ -21,44 +21,36 @@
         <a href="index.html">診断に戻る</a>
     </div>
 <script>
-    /*  全データのログ出力 */
-        let storageLength = window.localStorage.length;
-        let i
-        for(i=0;i<storageLength;i++){
-        
-        //ストレージのキーを取得
-        let storageKey = window.localStorage.key(i);
-        //値の取得
-        let storageValue = window.localStorage.getItem(storageKey);
-        
-        //出力
-        console.log(storageKey+":"+storageValue);
+/*  全データのログ出力 */
+    let storageLength = window.localStorage.length;
+    let i
+    for(i=0;i<storageLength;i++){
     
-        }
-    //フェードイン
-    function fadeIn(){
+    //ストレージのキーを取得
+    let storageKey = window.localStorage.key(i);
+    //値の取得
+    let storageValue = window.localStorage.getItem(storageKey);
+    
+    //出力
+    console.log(storageKey+":"+storageValue);
 
-        const keyframes ={
-        opacity:["0","1"]
-        }
-        const timing ={
-        fill:"forwards" ,
-        duration:1000
-        }
+    }
+//フェードイン
+function fadeIn(){
 
-        // アニメーションを加える要素を指定
-        document.body.animate(keyframes,timing);
+    const keyframes ={
+    opacity:["0","1"]
+    }
+    const timing ={
+    fill:"forwards" ,
+    duration:1000
+    }
 
-        }
-    fadeIn();
-//PWA化のためのswを読み込み
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js').then(registration => {
-    console.log('ServiceWorker registration successful.');
-}).catch(err => {
-    console.log('ServiceWorker registration failed.');
-});
-}
+    // アニメーションを加える要素を指定
+    document.body.animate(keyframes,timing);
+
+    }
+fadeIn();
 </script>
 </body>
 </html>
