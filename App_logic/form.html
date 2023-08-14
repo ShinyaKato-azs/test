@@ -56,10 +56,12 @@
     }
 
     function logJSON(json){
-        console.log(json);
+        //console.log(json);
     }
 
+    //非同期処理で実行
     async function fetchData(){
+        //awaitを用いて処理を順序付ける
         const response = await fetch("demo.json");
         const data = await response.json();
         const textData = JSON.stringify(data);
@@ -67,8 +69,8 @@
         console.log(textData);
         const question1 = data.Question1;
         console.log(question1);
-        console.log(question1.id);
-        console.log(question1.question);
+        console.log(question1[0].id);
+        console.log(question1[0].question);
     }
     fetchData();
     fetch('demo.json')
