@@ -65,6 +65,10 @@
         const textData = JSON.stringify(data);
         console.log('asyncを使いました');
         console.log(textData);
+        const question1 = data.Question1;
+        console.log(question1);
+        console.log(question1.id);
+        console.log(question1.question);
     }
     fetchData();
     fetch('demo.json')
