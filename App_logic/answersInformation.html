@@ -13,31 +13,43 @@
     <h2>e-sports診断回答一覧</h2>
     <div id="table-container">
         <table id="data-table" border="1" align="center">
-            <th>会社名</th>
-            <th>名前</th>
-            <th>回答配列</th>
+            <th>ストレージキー（ランダムな数字）</th>
+            <th>保存した情報</th>
             <tr id="table-row">
-                <td id="company-name">デモ会社</td>
-                <td id="username">デモ名前</td>
-                <td id="answers-array">デモ回答</td>
+                <td>デモ数字</td>
+                <td>デモデータ</td>
             </tr>
         </table>
     </div>
     <div>
-        <a href="index.html">診断に戻る</a>
+        <a href="form.html">診断に戻る</a>
     </div>
 <script>
+
 /*グローバル変数を定義*/
 let storageKey;
 let storageValue;
 let storageLength = window.localStorage.length;
 
+/*ローカルストレージをキーでソートする*/
+/*ローカルストレージの各要素を要素としてもつ配列を作成し、それをソートする
+*ローカルストレージから全てのキーの配列を取得、その配列に対してmap()で操作を加えている
+*配列の各要素を、連想配列({key:キー情報,value:値情報}＝ローカルストレージの各要素）にしている
+*/
+let dataArray = Object.keys(localStorage).map((k)=>({key:k, value:localStorage[k]}));
+//キーで昇順にソート
+dataArray.sort((a,b)=>a.key - b.key);
+
+//ソート済みのローカルストレージデータを格納する変数を宣言
+let allData = Object.assign({},...dataArray.map((data)=>({[data.key]:data.value})));
+
+
 /* ローカルストレージの要素数の文だけfor文で繰り返す */
   let i
   for(i=0;i<storageLength;i++){
     
-    //ストレージのキーを取得
-    storageKey = window.localStorage.key(i);
+    //ストレージのキーを取得(昇順にするために、ソートした配列（dataArray）から、値を参照するローカルストレージのキーを取得する)
+    storageKey = dataArray[i].key;
     //値の取得
     storageValue = window.localStorage.getItem(storageKey);
 
@@ -45,13 +57,14 @@ let storageLength = window.localStorage.length;
     let table =document.getElementById('data-table')
         //行を一行定義
         let tr = document.createElement('tr');
-        //行に列（td）を３つ追加
-        let companyName = document.createElement('td');
-        companyName.innerHTML = "デモ会社";
-        tr.appendChild(companyName);
+        //行に列（td）を2つ追加
+
+        //ランダムな数字（キー）
         let username = document.createElement('td');
         username.innerHTML = storageKey;
         tr.appendChild(username);
+
+        //保存したデータ（値）
         let answersArray = document.createElement('td');
         answersArray.innerHTML=storageValue;
         tr.appendChild(answersArray);
@@ -62,7 +75,7 @@ let storageLength = window.localStorage.length;
     //出力
     console.log(storageKey+":"+storageValue);
 
-  }
+ }
 </script>
 </body>
 </html>

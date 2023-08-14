@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フォーム</title>
+    <script src="" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <!---PWA用のmanifestファイル-->
+    <link rel="manifest" href="./manifest.json">
+</head>
+<body>
+    <h2>入力フォーム</h2>
+    <div>
+        <form name = form method="POST">
+            <p>会社名</p>
+            <input type="text" name="companyName"/>
+            <br>
+            <br>
+            <p>従業員規模</p>
+            <input type="text" name="numberOfEmployees"/>
+            <br>
+            <br>
+            <p>名前</p>
+            <input type="text" name="userName"/>
+        </form>
+        <br>
+        <button type="submit">送信</button>
+    </div>
+    <br>
+    <button type="button" onclick="setSessionStorage()">診断に進む</button>
+    <br>
+    <br>
+    <a href="answersInformation.html">管理者画面</a>
+</body>
+<script>
+    let formElements=document.forms.form;
+    let companyName;
+    let numberOfEmployees;
+    let userName;
+    
+    function setSessionStorage(){
+
+        //formの中身を変数に格納
+        companyName=formElements.companyName.value;
+        numberOfEmployees=formElements.numberOfEmployees.value;
+        userName= formElements.userName.value;
+        //各変数をセッションストレージに保存
+        sessionStorage.setItem("companyName",companyName);
+        sessionStorage.setItem("numberOfEmployees",numberOfEmployees);
+        sessionStorage.setItem("userName",userName);
+
+        //診断画面に遷移
+        window.location.href="index.html";
+
+    }
+
+    function logJSON(json){
+        console.log(json);
+    }
+
+    fetch('demo.json')
+		.then( response => response.json())
+		.then( data => logJSON(data));
+
+    
+</script>
+</html>

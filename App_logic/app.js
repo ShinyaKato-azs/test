@@ -92,8 +92,18 @@ const questionsArrayList ={1:demoQuestion1,2:demoQuestion2,3:demoQuestion3,4:dem
 
 
 /*******　グローバル変数の管理 ********/
+//会社名
+let companyName=sessionStorage.getItem("companyName");
+//従業員規模
+let numberOfEmployees=sessionStorage.getItem("numberOfEmployees");
 //ユーザー名
-let username = "かとうしんや";
+let userName = sessionStorage.getItem("userName");
+console.log(companyName);
+console.log(numberOfEmployees);
+console.log(userName);
+//会社・ユーザー情報を保存する連想配列
+let companyInfo={"会社名":companyName,"従業員数":numberOfEmployees,"名前":userName};
+
 //現在の質問番号
 let currentQuestionNumber = 1;
 //一つ前の質問番号
@@ -126,13 +136,20 @@ function updateQuestion(){
 
 }
 
-/******* 全回答保存・表示機能(結果画面表示前に呼び出す) *******/
+/******* 全回答をローカルストレージに保存する機能(結果画面表示前に呼び出す) *******/
 function saveToLocalStorage(){
 
-  //回答連想配列（オブジェクト）からJSON文字列に変換
-  let jsonText = JSON.stringify(answers);
+  //会社・ユーザー情報と回答一覧を格納するuserData連想配列を作成する
+  let userData={"会社・ユーザー情報":companyInfo,"回答":answers};
+  //json形式に変換
+  let userDataJsonText =JSON.stringify(userData);
+  //ローカルストレージのキーに現在時間のミリ秒を設定
+  let now = new Date();
+  let locasStorageKey =now.getTime();
   //ローカルストレージに保存
-  window.localStorage.setItem(username,jsonText);
+  window.localStorage.setItem(locasStorageKey,userDataJsonText);
+  //セッションストレージを削除（ユーザー切り替え）
+  sessionStorage.clear();
   
 }
 
@@ -150,9 +167,12 @@ function answerQuestion(optionNumber) {
   }
 
   /* 回答を連想配列に追加 */
-  //キー：現在の質問番号　値：選択肢番号
+  //キー：現在の質問番号
   const answersKey = currentQuestionNumber;
-  answers[answersKey] = chosenOption.number;
+  //値：選択肢番号
+  const answersValue = chosenOption.number;
+  //連想配列に追加
+  answers[answersKey] = answersValue;
   console.log(answers);
   /* 回答した質問を質問番号履歴に保存 */
   questionNumberHistory.push(currentQuestionNumber);
@@ -163,9 +183,10 @@ function answerQuestion(optionNumber) {
   //回答と履歴を保存したので、一つ前の質問番号を更新する
   previousQuestionNumber=questionNumberHistory[questionNumberHistory.length-1];
 
-  /* 最後の質問なら、回答を保存して、結果画面に遷移 */
+  /* 最後の質問なら、保存して結果画面に遷移 */
   if(chosenOption.isThisLastOption==true){
 
+    //ローカルストレージに保存
     saveToLocalStorage();
     //結果画面へ遷移
     window.location.href = chosenOption.href;
@@ -262,6 +283,12 @@ restartButton.addEventListener('click',function(){
   }
 
 })
+
+/******* 16進数のシリアルナンバー作成機能 *******/
+function getUniqueStr(){
+  var strong = 1000;
+  return new Date().getTime().toString(16)  + Math.floor(strong*Math.random()).toString(16)
+ }
 
 /******* アニメーション機能 *******/
 //ページ遷移
