@@ -62,7 +62,8 @@
     async function fetchData(){
         const response = await fetch("demo.json");
         const data = await response.json();
-        const textData = JSON.parse(data);
+        const textData = JSON.stringify(data);
+        console.log('asyncを使いました');
         console.log(textData);
     }
     fetchData();
