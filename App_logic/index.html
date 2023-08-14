@@ -72,6 +72,25 @@ fadeIn();
       console.log('ServiceWorker registration failed.');
     });
   }
+
+/*******　jsonファイルの読み込み ********/
+let questionJsonData;
+//非同期処理で実行
+  async function fetchData(){
+    //awaitを用いて処理を順序付ける
+    const response = await fetch("questions.json");
+    questionJsonData = await response.json();
+    const textData = JSON.stringify(questionJsonData);
+    console.log('asyncを使いました');
+    console.log(textData);
+    const question1 = data.Question1;
+    console.log(question1);
+    console.log(question1.number);
+    console.log(question1.sentence);
+}
+fetchData();
+console.log("データの確認です");
+console.log(questionJsonData);
 </script>
 </body>
 </html>
