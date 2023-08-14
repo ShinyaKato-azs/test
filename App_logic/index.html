@@ -75,7 +75,7 @@ fadeIn();
 
 /*******　jsonファイルの読み込み ********/
 //非同期処理で実行
-window.onload = async function fetchData(){
+async function fetchData(){
 //awaitを用いて処理を順序付ける
 const response = await fetch("questions.json");
 const questionJsonData = await response.json();
@@ -87,6 +87,7 @@ console.log(question1);
 console.log(question1.number);
 console.log(question1.sentence);
 }
+fetchData();
 let questions = fetchData().questionJsonData;
 console.log("データの確認です");
 console.log(questionJsonData);
