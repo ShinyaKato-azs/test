@@ -14,10 +14,14 @@
     <div id="table-container">
         <table id="data-table" border="1" align="center">
             <th>ストレージキー（ランダムな数字）</th>
-            <th>保存した情報</th>
+            <th>回答日時</th>
+            <th>会社・ユーザー情報</th>
+            <th>回答一覧</th>
             <tr id="table-row">
-                <td>デモ数字</td>
-                <td>デモデータ</td>
+                <td>00000000000000</td>
+                <td style="width:150px;">2000年1月1日</td>
+                <td>デモ会社情報・氏名</td>
+                <td>デモ回答一覧</td>
             </tr>
         </table>
     </div>
@@ -52,30 +56,63 @@ let allData = Object.assign({},...dataArray.map((data)=>({[data.key]:data.value}
     storageKey = dataArray[i].key;
     //値の取得
     storageValue = window.localStorage.getItem(storageKey);
+    //文字列として保存されているため、オブジェクト化する
+    let storageValueObj = JSON.parse(storageValue);
 
     /* テーブル要素の追加 */
     let table =document.getElementById('data-table')
         //行を一行定義
         let tr = document.createElement('tr');
-        //行に列（td）を2つ追加
+        //行に列（td）を3つ追加
 
-        //ランダムな数字（キー）
+        //回答日時のyyyymmddhh24miss形式（キー）
         let username = document.createElement('td');
         username.innerHTML = storageKey;
         tr.appendChild(username);
 
+        //回答日時のyyyy年mm月dd日
+        let answerDate = document.createElement('td');
+        answerDate.innerHTML= storageValueObj["日付"];
+        tr.appendChild(answerDate);
+
+        //会社情報
+        let companyInfo = document.createElement('td');
+        //文字列に再変換する
+        companyInfo.innerHTML = JSON.stringify(storageValueObj["会社・ユーザー情報"]);
+        tr.appendChild(companyInfo);
+
         //保存したデータ（値）
         let answersArray = document.createElement('td');
-        answersArray.innerHTML=storageValue;
+        //文字列に再変換する
+        answersArray.innerHTML= JSON.stringify(storageValueObj["回答"]);
         tr.appendChild(answersArray);
+
     //行をテーブルの最後に追加
     table.appendChild(tr);
 
     
-    //出力
+    //ログ出力
     console.log(storageKey+":"+storageValue);
 
  }
+
+// 保存するJSONファイルの名前
+const fileName = "answers.json";
+// データをJSON形式の文字列に変換する。
+if(Object.keys(allData).length==0){
+    //データ数が0なら何もしない
+}else{
+    const data = JSON.stringify(allData);
+    // HTMLのaタグ要素を生成する。
+    const link = document.createElement("a");
+    // リンク先にJSON形式の文字列データを置いておく。
+    link.href = "data:text/plain," + encodeURIComponent(data);
+    //HTML上で表示
+    link.innerHTML="保存";
+    document.body.appendChild(link);
+    // リンクを踏むと保存し、保存するJSONファイルの名前をリンクに設定する。
+    link.download = fileName;
+}
 </script>
 </body>
 </html>

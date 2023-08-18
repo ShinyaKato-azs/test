@@ -6,6 +6,9 @@
     <title>e-sports診断フローチャート</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="bootstrap.css">
+    <!-- 先に質問データのjsを読み込んでおく -->
+    <script src="questions.js"></script>
+    <!-- deferを付けて質問データのjsより先に読み込まないように制御 -->
     <script src="app.js" defer></script>
     <!---PWA用のmanifestファイル-->
     <link rel="manifest" href="./manifest.json">
@@ -72,25 +75,6 @@ fadeIn();
       console.log('ServiceWorker registration failed.');
     });
   }
-
-/*******　jsonファイルの読み込み ********/
-//非同期処理で実行
-async function fetchData(){
-//awaitを用いて処理を順序付ける
-const response = await fetch("questions.json");
-const questionJsonData = await response.json();
-const textData = JSON.stringify(questionJsonData);
-console.log('asyncを使いました');
-console.log(textData);
-const question1 = questionJsonData.Question1;
-console.log(question1);
-console.log(question1.number);
-console.log(question1.sentence);
-};
-fetchData();
-let questions = fetchData().questionJsonData;
-console.log("データの確認です");
-console.log(questionJsonData);
 </script>
 </body>
 </html>

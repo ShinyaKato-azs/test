@@ -1,91 +1,20 @@
-//質問クラス
-class Question{
+/*******　questions.jsで定義した質問を読み込み ********/
+let questions = window.questions;
 
-  //質問番号（ユニーク）
-  number;
-  //質問文
-  sentence;
-  //選択肢１のオブジェクト(選択肢クラス)
-  option1;
-  //選択肢2のオブジェクト（選択肢クラス）
-  option2;
 
-  //コンストラクタ
-  constructor(number,sentence,option1,option2){
-    this.number=number;
-    this.sentence=sentence;
-    this.option1=option1;
-    this.option2=option2;
-  }
-}
-
-//選択肢クラス
-class Option{
-
-  //選択肢番号（１番か２番か）
-  number;
-  //選択肢の表示名（「はい」「遊びます」など）
-  name;
-  //次の質問の質問番号
-  nextQuestionNumber;
-  //最後の選択肢かどうか(true/false)
-  isThisLastOption;
-  //結果画面のリンク（最後の質問のときだけ使用）
-  href;
-
-  //コンストラクタ
-  constructor(number,name,nextQuestionNumber,isThisLastOption,href){
-    this.number=number;
-    this.name=name;
-    this.nextQuestionNumber=nextQuestionNumber;
-    this.isThisLastOption=isThisLastOption;
-    this.href=href;
-  }
-
-}
 /*******　質問の生成 ********/
 /*【デモ質問１】*/
-//選択肢インスタンス化
-const number1Option1= new Option(1,'若年層',2,false,'');
-const number1Option2= new Option(2,'中年層',3,false,'');
-//質問をインスタンス化
-const demoQuestion1 = new Question(1,'1：社員の年齢層はどちらが多いですか？',number1Option1,number1Option2);
-
+const demoQuestion1 = questions.Question1;
 /*【デモ質問2】*/
-//選択肢インスタンス化
-const number2Option1= new Option(1,'はい',4,false,'');
-const number2Option2= new Option(2,'いいえ',5,false,'');
-//質問をインスタンス化
-const demoQuestion2 = new Question(2,'2：ゲームでよく遊ぶ社員は多いですか？',number2Option1,number2Option2);
-
+const demoQuestion2 = questions.Question2;
 /*【デモ質問3】*/
-//選択肢インスタンス化
-const number3Option1= new Option(1,'はい',4,false,'');
-const number3Option2= new Option(2,'いいえ',6,false,'');
-//質問をインスタンス化
-const demoQuestion3 = new Question(3,'3：ゲームでよく遊ぶ社員は多いですか？',number3Option1,number3Option2);
-
+const demoQuestion3 = questions.Question3;
 /* 【デモ質問4】:最終質問 */
-//選択肢インスタンス化
-const number4Option1= new Option(1,'個人戦',1,true,'demoResult.html');
-const number4Option2= new Option(2,'チーム戦',1,true,'demoResult2.html');
-//質問をインスタンス化
-const demoQuestion4 = new Question(4,'4:個人戦とチーム戦はどちらが魅力的ですか？',number4Option1,number4Option2);
-
+const demoQuestion4 = questions.Question4;
 /* 【デモ質問5】:最終質問 */
-//選択肢インスタンス化
-const number5Option1= new Option(1,'スポーツ',1,true,'demoResult2.html');
-const number5Option2= new Option(2,'娯楽',1,true,'demoResult3.html');
-//質問をインスタンス化
-const demoQuestion5 = new Question(5,'5:スポーツ要素と娯楽要素はどっち重視？',number5Option1,number5Option2);
-
-
+const demoQuestion5 = questions.Question5;
 /*【デモ質問6】:最終質問 */
-//選択肢インスタンス化
-const number6Option1= new Option(1,'はい',1,true,'demoResult.html');
-const number6Option2= new Option(2,'いいえ',1,true,'demoResult3.html');
-//質問をインスタンス化
-const demoQuestion6 = new Question(6,'6:昔はゲームでよく遊んでいた社員が多いですか？',number6Option1,number6Option2);
+const demoQuestion6 = questions.Question6;
 
 /* 質問配列の作成 */
 const questionsArrayList ={1:demoQuestion1,2:demoQuestion2,3:demoQuestion3,4:demoQuestion4,5:demoQuestion5,6:demoQuestion6}
@@ -139,15 +68,21 @@ function updateQuestion(){
 /******* 全回答をローカルストレージに保存する機能(結果画面表示前に呼び出す) *******/
 function saveToLocalStorage(){
 
-  //会社・ユーザー情報と回答一覧を格納するuserData連想配列を作成する
-  let userData={"会社・ユーザー情報":companyInfo,"回答":answers};
+  /** キーの処理 **/
+  //定義したメソッドでyyyymmddhh24miss形式で現在時刻を取得
+  let localStorageKey = getLocalStorageKey();
+
+  /** 値の処理 **/
+  //日付を設定(年月日まで)
+  let now = new Date();
+  let yymmdd = now.getFullYear()+'年'+(now.getMonth()+1)+'月'+(now.getDate())+'日';
+  //日付、会社・ユーザー情報、回答一覧を格納するuserData連想配列を作成する
+  let userData={"日付":yymmdd,"会社・ユーザー情報":companyInfo,"回答":answers};
   //json形式に変換
   let userDataJsonText =JSON.stringify(userData);
-  //ローカルストレージのキーに現在時間のミリ秒を設定
-  let now = new Date();
-  let locasStorageKey =now.getTime();
+
   //ローカルストレージに保存
-  window.localStorage.setItem(locasStorageKey,userDataJsonText);
+  window.localStorage.setItem(localStorageKey,userDataJsonText);
   //セッションストレージを削除（ユーザー切り替え）
   sessionStorage.clear();
   
@@ -284,11 +219,6 @@ restartButton.addEventListener('click',function(){
 
 })
 
-/******* 16進数のシリアルナンバー作成機能 *******/
-function getUniqueStr(){
-  var strong = 1000;
-  return new Date().getTime().toString(16)  + Math.floor(strong*Math.random()).toString(16)
- }
 
 /******* アニメーション機能 *******/
 //ページ遷移
@@ -309,8 +239,8 @@ function fadeOut(){
     duration:300
   }
 
-  // アニメーションを加える要素を指定
-  document.getElementById('container').animate(keyframes,timing);
+// アニメーションを加える要素を指定
+document.getElementById('container').animate(keyframes,timing);
 
 }
 //フェードイン
@@ -328,3 +258,65 @@ function fadeIn(){
   document.getElementById('container').animate(keyframes,timing);
 
 }
+
+/******* yyyymmddhh24miss形式の現在時刻（ローカルストレージのキー）を取得するモジュール *******/
+function getLocalStorageKey(){
+
+//現在時間を取得
+let now = new Date();
+
+/* 年月日時分秒で取得（yyyymmddhh24miss形式）*/
+//年
+let year = now.getFullYear().toString();
+
+//月（一桁なら最初に0を付けて二桁にする/＊getMonth()は今の月-1の値が返ってくるため、+1している）
+let month; 
+if(now.getMonth()+1 > 9){
+  month = (now.getMonth()+1).toString();
+}else{
+  month = 0+(now.getMonth()+1).toString();
+}
+
+//日（一桁なら最初に0を付けて二桁にする）
+let date;
+if(now.getDate() > 9){
+  date = (now.getDate()).toString();
+}else{
+  date = 0+(now.getDate()).toString();
+}
+
+//時（一桁なら最初に0を付けて二桁にする）
+let hours;
+if(now.getHours() > 9){
+  hours = (now.getHours()).toString();
+}else{
+  hours = 0+(now.getHours()).toString();
+}
+
+//分（一桁なら最初に0を付けて二桁にする）
+let minutes;
+if(now.getMinutes() > 9){
+  minutes = (now.getMinutes()).toString();
+}else{
+  minutes = 0+(now.getMinutes()).toString();
+}
+
+//秒（一桁なら最初に0を付けて二桁にする）
+let seconds;
+if(now.getSeconds() > 9){
+  seconds = (now.getSeconds()).toString();
+}else{
+  seconds = 0+(now.getSeconds()).toString();
+}
+
+let key = year+month+date+hours+minutes+seconds;
+return key;
+
+}
+
+/******* 16進数のシリアルナンバー作成するモジュール(web掲載時に使用するかも) *******/
+function getUniqueStr(){
+  var strong = 1000;
+  return new Date().getTime().toString(16)  + Math.floor(strong*Math.random()).toString(16)
+}
+  
