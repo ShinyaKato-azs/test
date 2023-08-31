@@ -14,7 +14,7 @@ const urlsToCache = [
   './images/a-zs_logo_full.png',
   './images/a-zs_logo.png',
   './images/apex.jpg',
-  './images/fallguys.jpg',
+  './images/Fallguys.jpg',
   './images/fortnite.jfif',
   './images/mariokart8dx.jfif',
   './images/pokemon.png',
@@ -28,6 +28,15 @@ const urlsToCache = [
   './html/inputform.html',
   './html/question.html',
   './html/stats.html',
+  './html/results/result1.html',
+  './html/results/result2.html',
+  './html/results/result3.html',
+  './html/results/result4.html',
+  './html/results/result5.html',
+  './html/results/result6.html',
+  './html/results/result7.html',
+  './html/results/result8.html',
+  './html/results/result9.html',
 ];
 
 //swは正常に登録されるとinstallイベントが走る
