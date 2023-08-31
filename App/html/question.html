@@ -25,12 +25,12 @@
     <div id="back-button" class="btn btn--else btn--cubic btn--shadow" style="padding: 12px 35px;" onclick="backToPreviousQuestion();pageTransition()">1つ戻る</div>
     </div>
   </div>
-  <div style="height: 300px;" id="container">
-        <div>
-          <p id="question" class="text-center">プライベートでゲームする社員は多いですか？</p>
+  <div style="height:300px"id="container" class="d-flex align-items-center justify-content-center">
+        <div class="text-center">
+          <span id="question" style="font-size:40px;">プライベートでゲームする社員は多いですか？</span>
         </div>
   </div>
-    <div class="text-center">
+    <div class="text-center" style="height:200px">
       <button id=option1 style="width:300px;font-size: 25px; font-weight: bold;" class="btn btn--option1 btn--cubic btn--shadow mr-5"onclick="answerQuestion(1);pageTransition();preventDoubleTap()">はい</button>
       <button id=option2 style="width:300px;font-size: 25px; font-weight: bold;" class="btn btn--option2 btn--cubic btn--shadow ml-5 "onclick="answerQuestion(2);pageTransition();preventDoubleTap()">いいえ</button>
     </div>
