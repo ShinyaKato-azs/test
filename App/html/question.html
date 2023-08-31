@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="App Title" />
+    <!-- BootstrapのCSS読み込み -->
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/question.css">
+    <script src="../js/questions.js"></script>
+    <script src="../js/app.js" defer></script>
+    <title>質問</title>
+    <link rel="manifest" href="../manifest.json">
+</head>
+<header>
+    <img src="../images/a-zs_logo_full.png" class="ml-3 mt-3">
+</header>
+<body>
+  
+  <div class="text-right m-4">
+    <div style="height: 60px;" class="mb-2" >
+    <div id="restart-button" class="btn btn--else btn--cubic btn--shadow ">はじめから</div>
+    </div>
+    <div style="height: 20px;">
+    <div id="back-button" class="btn btn--else btn--cubic btn--shadow" style="padding: 12px 35px;" onclick="backToPreviousQuestion();pageTransition()">1つ戻る</div>
+    </div>
+  </div>
+  <div style="height: 300px;" id="container">
+        <div>
+          <p id="question" class="text-center">プライベートでゲームする社員は多いですか？</p>
+        </div>
+  </div>
+    <div class="text-center">
+      <button id=option1 style="width:300px;font-size: 25px; font-weight: bold;" class="btn btn--option1 btn--cubic btn--shadow mr-5"onclick="answerQuestion(1);pageTransition();preventDoubleTap()">はい</button>
+      <button id=option2 style="width:300px;font-size: 25px; font-weight: bold;" class="btn btn--option2 btn--cubic btn--shadow ml-5 "onclick="answerQuestion(2);pageTransition();preventDoubleTap()">いいえ</button>
+    </div>
+  </div>
+  <script>
+    function preventDoubleTap(){
+
+        const targets = document.querySelectorAll('.btn');
+        //option1とoption2を指定して無効化
+        targets[2].disabled = true;
+        targets[3].disabled = true;
+        //一定時間後に再度有効化
+        window.setTimeout(()=>{targets[2].disabled = false},400);
+        window.setTimeout(()=>{targets[3].disabled = false},400);
+
+};
+  </script>
+</body>
+</html>

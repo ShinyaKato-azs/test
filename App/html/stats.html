@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta ="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-sports診断フローチャート 回答一覧</title>
+    <!-- 先に質問データのjsを読み込んでおく -->
+    <script src="../js/questions.js"></script>
+    <script src="" defer></script>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <!---PWA用のmanifestファイル-->
+    <link rel="manifest" href="../manifest.json">
+</head>
+<body>
+    <div>
+        <table align="center" border="1" id="statsTable" class="table-striped" style="width:98%;">
+            <th>質問文</th>
+            <th>選択肢１</th>
+            <th>人数</th>
+            <th>選択肢２</th>
+            <th>人数</th>
+        </table>
+    </div>
+    <div>
+        <a href="answersInformation.html">管理者画面トップに戻る</a>
+    </div>
+    <div>
+        <b><a id="download" href="#" download="回答集計.csv" onclick="csvDownload()">csvファイルダウンロード</a></b>
+    </div>
+<script>
+
+/*******　questions.jsで定義した質問を読み込み ********/
+let questions = window.questions;
+/*グローバル変数を定義*/
+let storageKey;
+let storageValue;
+let storageLength = window.localStorage.length;
+
+/* 集計連想配列の作成 */
+let statsArrayList = {};
+//キー
+let statsArrayListKey;
+//質問の数だけ繰り返す
+let i;
+for(i=0;i<questions.length;i++){
+  //キーは質問番号と一致させる
+  statsArrayListKey = 1+i;
+  //値は固定（それぞれの選択肢を選んだ個数をカウントしていく）
+  statsArrayListValue = {option1:0,option2:0};
+  statsArrayList[statsArrayListKey]=statsArrayListValue;
+}
+
+
+/* ローカルストレージの要素数（レコード数）の文だけfor文で繰り返す */
+let j
+for(j=0;j<storageLength;j++){
+
+    //ローカルストレージキーの取得
+    storageKey = localStorage.key(j);
+    //ローカルストレージの値の取得
+    storageValue = window.localStorage.getItem(storageKey);
+    //文字列として保存されているため、オブジェクト化する
+    let storageValueObj = JSON.parse(storageValue);
+
+    //回答データを取得
+    let answers = storageValueObj["回答"];
+    //回答データの質問番号の一覧を取得
+    let questionNumberArray = Object.keys(answers);
+
+    //質問番号を取得し、どの質問番号でどの選択肢を選んだのかを取得する
+    let k;
+    for(k=0;k<questionNumberArray.length;k++){
+        //質問番号の取得
+        let questionNumber = questionNumberArray[k];
+        //質問番号から、選んだ選択肢（1or2）を取得
+        let chosenOption = answers[questionNumber];
+        
+        //全質問数ぶん繰り返す。質問番号と一致する集計用連想配列のカウンターを操作する。
+        let l
+        for(l=1;l<=questions.length;l++){
+            if(questionNumber == l){
+                if(chosenOption==1){
+                    statsArrayList[l].option1++;
+                }else{
+                    statsArrayList[l].option2++;
+                }
+            }else{
+                //何もしない
+            }
+        }
+    }
+}
+
+/*** テーブルの作成 ***/
+let statsTable = document.getElementById('statsTable');
+let k;
+for(k=0;k<questions.length;k++){
+
+    let tr = document.createElement('tr');
+
+    let questionSentence = document.createElement('td');
+    questionSentence.innerHTML= '<h4>'+questions[k].sentence+'</h4>';
+    tr.appendChild(questionSentence);
+
+    let option1Name = document.createElement('td');
+    option1Name.innerText = questions[k].option1.name;
+    tr.appendChild(option1Name);
+
+    let option1Number = document.createElement('td');
+    option1Number.innerText = statsArrayList[k+1].option1;
+    tr.appendChild(option1Number);
+
+    let option2Name = document.createElement('td');
+    option2Name.innerText = questions[k].option2.name;
+    tr.appendChild(option2Name);
+
+    let option2Number = document.createElement('td');
+    option2Number.innerText = statsArrayList[k+1].option2;
+    tr.appendChild(option2Number);
+
+    statsTable.appendChild(tr);
+}
+
+/**************************************************************/
+//csvダウンロード
+function csvDownload() {
+    //文字コードをBOM付きUTF-8に指定（Excelで開くときに正しくエンコードされるようにする）
+    let bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    //対象のテーブルを取得
+    let table = document.getElementById('statsTable');
+    //data_csvに文字データとして値を格納していく
+    let data_csv="";
+
+    //テーブルのレコードの数＝質問の数+1だけ繰り返す（thも出力するため）
+    let loop = Object.keys(questions).length;
+    for(let i = 0;  i <= loop; i++){
+
+        //列の数＝行のセルの数だけ繰り返す
+        for(let j = 0; j < table.rows[i].cells.length; j++){
+            //HTML中の表のセル値をdata_csvに格納
+            data_csv += table.rows[i].cells[j].innerText;
+            //行終わりなら改行コードを追加
+            if(j == table.rows[i].cells.length-1){
+                data_csv += "\n";
+            }else {
+            //行終わりじゃなければ、セル値の区切り文字になる,を追加
+                data_csv += ",";
+            }
+        }
+
+    }
+
+    //data_csvのデータをcsvとしてダウンロードする関数
+    let blob = new Blob([ bom, data_csv], { "type" : "text/csv" });
+
+    document.getElementById("download").href = window.URL.createObjectURL(blob);
+    
+    delete data_csv;//data_csvオブジェクトはもういらないので消去してメモリを開放
+    }
+
+</script>
+</body>
+</html>

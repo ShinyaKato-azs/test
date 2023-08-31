@@ -1,0 +1,33 @@
+.title{
+  font-size: 70px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.catch-phrase{
+  margin: 80px;
+  font-size: 50px;
+  background-color: rgb(206, 204, 204);
+  border-radius: 30px;
+}
+  
+
+a.btn--start{
+  font-size: 60px ;
+  color: #fff;
+  background-color: #0ad696;
+  border-bottom: 5px solid #007c2f;
+  padding: 50px 100px;
+  border-radius: 30px;
+}
+
+a.btn--start:active{
+  margin-top: 3px;
+  color: #fff;
+  background: #0ad696;
+  border-bottom: 2px solid #007c2f;
+}
+a.btn--shadow {
+  -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}

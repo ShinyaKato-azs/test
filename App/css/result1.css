@@ -1,0 +1,38 @@
+.float-left{
+  margin-right: 2000px;
+}
+
+.title{
+  margin-top:10px;
+}
+
+
+div.game-picture img{
+  width: 400px;
+  margin: auto;
+  display: block;
+}
+
+.game-title{
+  font-size: 40px;
+}
+
+a.btn--restart{
+  color: #fff;
+  background-color: #0ad696;
+  border-bottom: 3px solid #007c2f;
+  padding: 12px 24px;
+  border-radius: 30px;
+}
+
+a.btn--restart:active{
+  margin-top: 3px;
+  color: #fff;
+  background: #0ad696;
+  border-bottom: 1px solid #007c2f;
+}
+
+a.btn--shadow {
+  -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}

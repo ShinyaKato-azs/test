@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/inputform.css">
+    <title>個人情報入力</title>
+    <link rel="manifest" href="../manifest.json">
+    <style>
+        .error-message {
+            min-height: 25px; /* エラーメッセージのためのスペースを確保 */
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="../images/a-zs_logo_full.png" class="ml-3 mt-3">
+    </header>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-8">
+                <form id="submitForm" name="form" onsubmit="return validationForm()" action="question.html">
+
+                    <div class="mb-5">
+                        <label for="companyName" class="form-label" style="font-size: 25px;">企業名</label>
+                        <input type="text" name="companyName" class="form-control" id="companyName" aria-describedby="emailHelp" size="20">
+                        <span id="companyNameError" class="text-danger error-message"></span>
+                    </div>
+
+                    <div class="mb-5">
+                        <label for="fullName" class="form-label" style="font-size: 25px;">氏名</label>
+                        <input type="text" name="userName" class="form-control" id="userName">
+                        <span id="fullNameError" class="text-danger error-message"></span>
+                    </div>
+
+                    <div class="mb-5">
+                        <label for="employeeSize" class="form-label" style="font-size: 25px;">従業員規模</label>
+                        <select class="form-control" id="employeeSize" name="numberOfEmployees">
+                            <option value="" selected>選択してください</option>
+                            <option value="~50">~50</option>
+                            <option value="51~100">51~100</option>
+                            <option value="101~500">101~500</option>
+                            <option value="501~1000">501~1000</option>
+                            <option value="1000~">1000~</option>
+                        </select>
+                        <span id="companyOption" class="text-danger error-message"></span>
+                    </div>
+
+                    <div class="text-center" id="buttons">
+                        <a onclick="setSessionStorage();" style="color: white;" class="btn btn--start btn--shadow">スタート</a>
+                        <a onclick="onclick=back();" style="color: white;margin-top: 4px;"  class="btn btn--back btn--shadow">戻る</a>
+                    </div>
+
+                </form>
+               
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function back() {
+            location.href = 'checkPhoto.html';
+        }
+
+        function validationForm() {
+            // エラーメッセージの初期化
+            document.getElementById('companyNameError').textContent = '';
+            document.getElementById('fullNameError').textContent = '';
+            document.getElementById('companyOption').textContent = '';
+
+            var companyName = document.getElementById('companyName').value.trim();
+            var fullName = document.getElementById('userName').value.trim();
+            var employeeSize = document.getElementById('employeeSize').value;
+            var isValid = true;
+
+            if (companyName === "") {
+                document.getElementById('companyNameError').textContent = '企業名を入力してください。';
+                isValid = false;
+            }
+
+            if (fullName === "") {
+                document.getElementById('fullNameError').textContent = '氏名を入力してください。';
+                isValid = false;
+            }
+
+            if (employeeSize === "") {
+                document.getElementById('companyOption').textContent = '従業員規模を選択してください。';
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function setSessionStorage() {
+            let isValid = validationForm();
+
+            if (isValid) {
+                let formElements = document.forms.form;
+                sessionStorage.setItem("companyName", formElements.companyName.value);
+                sessionStorage.setItem("numberOfEmployees", formElements.numberOfEmployees.value);
+                sessionStorage.setItem("userName", formElements.userName.value);
+                window.location.href = "question.html";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

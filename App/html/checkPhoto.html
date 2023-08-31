@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <title>写真撮影確認</title>
+  <link rel="manifest" href="../manifest.json">
+</head>
+<body>
+  <header>
+    <img src="../images/a-zs_logo_full.png" class="ml-3 mt-3">
+  </header>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="alert alert-info" role="alert">
+          スタッフを呼んで入館証の写真を撮影をしてください。
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="checkPhoto" onchange="enableButton()">
+          <label class="form-check-label" for="checkPhoto">写真を撮影しました</label>
+        </div>
+        <button type="button" class="btn btn-primary" id="nextButton" disabled onclick="location.href='inputform.html'">進む</button>
+        <button type="button" class="btn btn-light" button onclick="confirmBack()">戻る</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function enableButton() {
+      const checkbox = document.getElementById('checkPhoto');
+      const button = document.getElementById('nextButton');
+      button.disabled = !checkbox.checked;
+    }
+    function confirmBack() {
+      var shouldLeave = confirm('本当にこのページから戻りますか？');
+      if (shouldLeave) {
+        location.href = 'informationConsent.html';  // 本当に戻る
+      }
+    }
+
+  </script>
+
+
+</body>
+</html>

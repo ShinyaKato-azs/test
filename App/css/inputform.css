@@ -1,0 +1,46 @@
+.container{
+  margin-top:10px;
+}
+
+.form-control{
+  height: 60px;
+}
+
+a.btn--start{
+  color: #fff;
+  background-color: #0ad696;
+  border-bottom: 3px solid #007c2f;
+  padding: 12px 150px;
+  border-radius: 30px;
+}
+
+a.btn--start:active{
+  margin-top: 3px;
+  color: #fff;
+  background: #0ad696;
+  border-bottom: 2px solid #007c2f;
+}
+
+a.btn--back{
+  color: #fff;
+  background-color: rgb(152, 152, 152);
+  border-bottom: 3px solid #5d5d5d;
+  padding: 12px 30px;
+  border-radius: 30px;
+}
+
+a.btn--back:active{
+  margin-top: 3px;
+  color: #fff;
+  background: rgb(152, 152, 152);
+  border-bottom: 2px solid #5d5d5d;
+}
+
+.btn--shadow {
+  -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
+
+#backbutton{
+  margin-top: 5px;
+}

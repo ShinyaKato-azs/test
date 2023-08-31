@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- BootstrapのCSS読み込み -->
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/title.css">
+    <title>タイトル</title>
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <header>
+    <img src="./images/a-zs_logo_full.png" class="ml-3 mt-3">
+  </header>
+  <div class="text-center">
+    <h1 class="title">esports診断</h1>
+  </div>
+  <div class="text-center">
+    <a href="./html/informationConsent.html" class="btn btn--start btn--cubic btn--shadow">スタート</a>
+  </div>
+
+  <div class="text-center">
+    <p class="catch-phrase">esportsで最適な福利厚生をあなたに</p>
+  </div>
+
+  <div>
+    <button id="admin-button" onclick="requirePassword()">管理者用ページ</button>
+  </div>
+
+  <script>
+  //管理者用画面への遷移制御
+function requirePassword(){
+     password=prompt("パスワードを入力してください","");
+     if ( password == "aa" ){
+         location.href="./html/answersInformation.html";
+     }
+     else if(password == null){
+        
+     }
+     else{
+        alert( "パスワードが違います" );
+     }
+}
+
+    //PWA化のためのswを読み込み
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').then(registration => {
+      console.log('ServiceWorker registration successful.');
+    }).catch(err => {
+      console.log('ServiceWorker registration failed.');
+    });
+  }
+  </script>
+</body>
+</html>
